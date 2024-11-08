@@ -4,14 +4,14 @@
 
 | Name |
 | ---- | 
-| Qqu_1 |
-| Qqu_2 | 
+| Luis Moo Huert |
+| Raul Metri Torres | 
 
 ## Assignation
 
 | User Stories |    Developer    |
 | ------------ | :-------------: |
-| As a user, I need to see an interface resembling the Simon Says game with 4 quadrants each with differents colors and they should be clickable, this needs to be perfectly centered and have enough space between each quadrant. |  |
+| As a user, I need to see an interface resembling the Simon Says game with 4 quadrants each with differents colors and they should be clickable, this needs to be perfectly centered and have enough space between each quadrant. | The implemented design  |
 | As a user, I need to see a button properly placed so I can start a match |  |
 | As a user, after I press start game, I need to be presented with a series of randoms input (only 1 at the start) if I input the pattern correctly it needs to repeat over again but with 1 additional step. |  |
 | As a user, when the sequence plays or the button is pressed I need to hear a sound for each button. | |
