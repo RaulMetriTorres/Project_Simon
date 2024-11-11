@@ -50,7 +50,7 @@ body {
     height: 100%;
     border-radius: 10px;
     box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
-    transition: background-color 0.3s, box-shadow 0.3s;
+    transition: background-color 0.15s, box-shadow 0.15s;
     cursor: pointer;
 }
 
@@ -88,3 +88,14 @@ body {
 .red:active { background-color: #ff0000; box-shadow: 0 0 20px #ff0000; }
 .yellow:active { background-color: #ffff00; box-shadow: 0 0 20px #ffff00; }
 .blue:active { background-color: #0000ff; box-shadow: 0 0 20px #0000ff; }
+
+.activo {
+    opacity: 0.7;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+}
+
+.green.activo { background-color: #00ff00; box-shadow: 0 0 20px #00ff00; }
+.red.activo { background-color: #ff0000; box-shadow: 0 0 20px #ff0000; }
+.yellow.activo { background-color: #ffff00; box-shadow: 0 0 20px #ffff00; }
+.blue.activo { background-color: #0000ff; box-shadow: 0 0 20px #0000ff; }
+
