@@ -84,11 +84,22 @@ function ingresarColor(color) {
     entradaJugador.push(color);
     reproducirSonido(color); // Reproducir el sonido cuando el jugador presiona el botón
     
+    // Verificar si el último botón presionado coincide con la secuencia correcta
+    const index = entradaJugador.length - 1;
+    if (entradaJugador[index] !== secuenciaColores[index]) {
+        alert("Incorrecto. Intenta de nuevo desde el nivel 1.");
+        reiniciarJuego();
+        return; // Salir de la función si hay un error
+    }
+    
     // Verificar si el jugador ha completado la secuencia
     if (entradaJugador.length === secuenciaColores.length) {
-        verificarSecuencia();
+        nivel++;
+        alert("¡Correcto! Pasas al nivel " + nivel);
+        siguienteNivel();
     }
 }
+
 
 // Función para verificar la secuencia ingresada por el jugador
 function verificarSecuencia() {
