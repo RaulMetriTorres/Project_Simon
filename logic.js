@@ -3,21 +3,40 @@ let nivel = 1;
 let secuenciaColores = [];
 let entradaJugador = [];
 const botones = document.querySelectorAll(".simon-button");
+const botonInicio = document.querySelector(".simon-startbutton");
+
+// Cargar sonidos para cada color
+const sonidos = {
+    green: new Audio('sounds/green.mp3'),
+    red: new Audio('sounds/red.mp3'),
+    yellow: new Audio('sounds/yellow.mp3'),
+    blue: new Audio('sounds/blue.mp3')
+};
 
 // Función para inicializar el juego
 function iniciarJuego() {
     nivel = 1;
     secuenciaColores = []; // Limpiar la secuencia para comenzar desde cero
+    botonInicio.textContent = "RESET"; // Cambiar el texto del botón a "RESET"
     siguienteNivel();
+}
+
+// Función para reiniciar el juego y volver a mostrar "START"
+function reiniciarJuego() {
+    nivel = 1;
+    secuenciaColores = [];
+    entradaJugador = [];
+    botonInicio.textContent = "START"; // Cambiar el texto del botón de vuelta a "START"
 }
 
 // Función para avanzar al siguiente nivel
 function siguienteNivel() {
-    if (nivel <= 20) { // Limitar a los primeros 5 niveles
+    if (nivel <= 20) { // Limitar a los primeros 20 niveles
         agregarColorAleatorio();
         mostrarSecuencia();
     } else {
         alert("¡Felicidades, has completado el juego!");
+        reiniciarJuego(); // Reiniciar el juego al completar todos los niveles
     }
 }
 
@@ -40,19 +59,30 @@ function mostrarSecuencia() {
     });
 }
 
-// Función para encender y apagar un color
+// Función para encender, apagar y reproducir sonido de un color
 function encenderColor(color) {
     const boton = document.querySelector(`.${color}`);
     boton.classList.add("activo"); // Simula la clase activa
+    reproducirSonido(color); // Reproducir el sonido correspondiente al color
     
     setTimeout(() => {
         boton.classList.remove("activo"); // Remueve la clase activa después de 500 ms
     }, 500); 
 }
 
+// Función para reproducir sonido
+function reproducirSonido(color) {
+    const sonido = sonidos[color];
+    if (sonido) {
+        sonido.currentTime = 0; // Reiniciar el sonido si ya estaba en reproducción
+        sonido.play();
+    }
+}
+
 // Función para capturar el color seleccionado por el jugador
 function ingresarColor(color) {
     entradaJugador.push(color);
+    reproducirSonido(color); // Reproducir el sonido cuando el jugador presiona el botón
     
     // Verificar si el jugador ha completado la secuencia
     if (entradaJugador.length === secuenciaColores.length) {
@@ -70,7 +100,7 @@ function verificarSecuencia() {
         siguienteNivel();
     } else {
         alert("Incorrecto. Intenta de nuevo desde el nivel 1.");
-        iniciarJuego();
+        reiniciarJuego();
     }
 }
 
@@ -82,5 +112,13 @@ botones.forEach(boton => {
     });
 });
 
-// Asignar evento al botón de inicio
-document.querySelector(".simon-startbutton").addEventListener("click", iniciarJuego);
+// Asignar evento al botón de inicio o reset
+botonInicio.addEventListener("click", () => {
+    if (botonInicio.textContent === "START") {
+        iniciarJuego();
+    } else {
+        reiniciarJuego();
+    }
+});
+
+
