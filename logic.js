@@ -27,6 +27,7 @@ function reiniciarJuego() {
     secuenciaColores = [];
     entradaJugador = [];
     botonInicio.textContent = "START"; // Cambiar el texto del botón de vuelta a "START"
+    document.querySelector(".simon-levelbutton").textContent = `0/20`; // Resetear el nivel en la UI a 0
 }
 
 // Función para avanzar al siguiente nivel
@@ -34,6 +35,7 @@ function siguienteNivel() {
     if (nivel <= 20) { // Limitar a los primeros 20 niveles
         agregarColorAleatorio();
         mostrarSecuencia();
+        document.querySelector(".simon-levelbutton").textContent = `${nivel}/20`;
     } else {
         alert("¡Felicidades, has completado el juego!");
         reiniciarJuego(); // Reiniciar el juego al completar todos los niveles

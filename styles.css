@@ -99,3 +99,21 @@ body {
 .yellow.activo { background-color: #ffff00; box-shadow: 0 0 20px #ffff00; }
 .blue.activo { background-color: #0000ff; box-shadow: 0 0 20px #0000ff; }
 
+.simon-levelbutton {
+    width: 80px;
+    height: 50px;
+    border-radius: 10px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.5), inset 0 0 10px rgba(0, 0, 0, 0.5);
+    cursor: default; /* No hacer clic */
+    margin: auto;
+    font-family: "Tiny5", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    text-align: center;
+    align-content: center;
+    background: linear-gradient(#ffff79, #ff3eaf);
+    transition: box-shadow 0.2s, transform 0.2s;
+}
