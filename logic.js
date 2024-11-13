@@ -4,6 +4,7 @@ let secuenciaColores = [];
 let entradaJugador = [];
 const botones = document.querySelectorAll(".simon-button");
 const botonInicio = document.querySelector(".simon-startbutton");
+let juegoIniciado = false;  // Nueva variable para controlar si el juego ha comenzado
 
 // Cargar sonidos para cada color
 const sonidos = {
@@ -18,6 +19,7 @@ function iniciarJuego() {
     nivel = 1;
     secuenciaColores = []; // Limpiar la secuencia para comenzar desde cero
     botonInicio.textContent = "RESET"; // Cambiar el texto del botón a "RESET"
+    juegoIniciado = true;  // Marcar que el juego ha comenzado
     siguienteNivel();
 }
 
@@ -28,6 +30,8 @@ function reiniciarJuego() {
     entradaJugador = [];
     botonInicio.textContent = "START"; // Cambiar el texto del botón de vuelta a "START"
     document.querySelector(".simon-levelbutton").textContent = `0/20`; // Resetear el nivel en la UI a 0
+    juegoIniciado = false;  // Marcar que el juego no ha comenzado
+    desactivarBotones();  // Desactivar los botones al reiniciar
 }
 
 // Función para avanzar al siguiente nivel
@@ -85,7 +89,6 @@ function encenderColor(color) {
     }, 500); 
 }
 
-
 // Función para reproducir sonido
 function reproducirSonido(color) {
     const sonido = sonidos[color];
@@ -97,6 +100,8 @@ function reproducirSonido(color) {
 
 // Función para capturar el color seleccionado por el jugador
 function ingresarColor(color) {
+    if (!juegoIniciado) return;  // Evitar interacción antes de iniciar el juego
+
     entradaJugador.push(color);
     reproducirSonido(color); // Reproducir el sonido cuando el jugador presiona el botón
     
@@ -115,7 +120,6 @@ function ingresarColor(color) {
         setTimeout(siguienteNivel, 1000);
     }
 }
-
 
 // Función para verificar la secuencia ingresada por el jugador
 function verificarSecuencia() {
@@ -143,9 +147,24 @@ botones.forEach(boton => {
 botonInicio.addEventListener("click", () => {
     if (botonInicio.textContent === "START") {
         iniciarJuego();
+        activarBotones();  // Habilitar botones cuando se inicie el juego
     } else {
         reiniciarJuego();
     }
 });
+
+// Funciones para activar/desactivar botones
+function activarBotones() {
+    botones.forEach(boton => {
+        boton.classList.remove("desactivado");
+    });
+}
+
+function desactivarBotones() {
+    botones.forEach(boton => {
+        boton.classList.add("desactivado");
+    });
+}
+
 
 
