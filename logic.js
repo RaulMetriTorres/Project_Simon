@@ -53,12 +53,25 @@ function agregarColorAleatorio() {
 function mostrarSecuencia() {
     entradaJugador = [];
     let delay = 0;
+    
+    // Desactivar los botones durante la secuencia
+    botones.forEach(boton => {
+        boton.classList.add("desactivado");
+    });
+    
     secuenciaColores.forEach((color, index) => {
         setTimeout(() => {
             encenderColor(color);
         }, delay);
         delay += 1000; // Tiempo entre cada color
     });
+    
+    // Reactivar los botones después de mostrar la secuencia
+    setTimeout(() => {
+        botones.forEach(boton => {
+            boton.classList.remove("desactivado");
+        });
+    }, delay);
 }
 
 // Función para encender, apagar y reproducir sonido de un color
@@ -71,6 +84,7 @@ function encenderColor(color) {
         boton.classList.remove("activo"); // Remueve la clase activa después de 500 ms
     }, 500); 
 }
+
 
 // Función para reproducir sonido
 function reproducirSonido(color) {

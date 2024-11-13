@@ -117,3 +117,14 @@ body {
     background: linear-gradient(#ffff79, #ff3eaf);
     transition: box-shadow 0.2s, transform 0.2s;
 }
+
+.simon-button.desactivado {
+    pointer-events: none; /* Desactivar la interacción con el botón */
+    opacity: 0.5; /* Reducir la opacidad para que parezca inactivo */
+}
+
+.simon-button.desactivado:active {
+    background-color: initial; /* Evitar el cambio de color al hacer clic */
+    box-shadow: none; /* Evitar el efecto de sombra */
+}
+
