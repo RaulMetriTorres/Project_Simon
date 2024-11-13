@@ -2,6 +2,7 @@
 let nivel = 1;
 let secuenciaColores = [];
 let entradaJugador = [];
+let timeoutIds = [];  // Array para almacenar los ids de los setTimeout
 const botones = document.querySelectorAll(".simon-button");
 const botonInicio = document.querySelector(".simon-startbutton");
 let juegoIniciado = false;  // Nueva variable para controlar si el juego ha comenzado
@@ -25,6 +26,10 @@ function iniciarJuego() {
 
 // Función para reiniciar el juego y volver a mostrar "START"
 function reiniciarJuego() {
+    // Cancelar cualquier secuencia que esté en ejecución
+    timeoutIds.forEach(timeoutId => clearTimeout(timeoutId)); // Detener los temporizadores activos
+    timeoutIds = [];  // Limpiar el array de timeoutIds
+
     nivel = 1;
     secuenciaColores = [];
     entradaJugador = [];
@@ -62,20 +67,23 @@ function mostrarSecuencia() {
     botones.forEach(boton => {
         boton.classList.add("desactivado");
     });
-    
+
+    // Guardar los ids de los temporizadores
     secuenciaColores.forEach((color, index) => {
-        setTimeout(() => {
+        const timeoutId = setTimeout(() => {
             encenderColor(color);
         }, delay);
+        timeoutIds.push(timeoutId);  // Guardar el id del temporizador
         delay += 1000; // Tiempo entre cada color
     });
-    
+
     // Reactivar los botones después de mostrar la secuencia
-    setTimeout(() => {
+    const timeoutId = setTimeout(() => {
         botones.forEach(boton => {
             boton.classList.remove("desactivado");
         });
     }, delay);
+    timeoutIds.push(timeoutId);  // Guardar el id del temporizador
 }
 
 // Función para encender, apagar y reproducir sonido de un color
@@ -121,20 +129,6 @@ function ingresarColor(color) {
     }
 }
 
-// Función para verificar la secuencia ingresada por el jugador
-function verificarSecuencia() {
-    const esCorrecto = entradaJugador.every((color, index) => color === secuenciaColores[index]);
-    
-    if (esCorrecto) {
-        nivel++;
-        alert("¡Correcto! Pasas al nivel " + nivel);
-        siguienteNivel();
-    } else {
-        alert("Incorrecto. Intenta de nuevo desde el nivel 1.");
-        reiniciarJuego();
-    }
-}
-
 // Asignar eventos a los botones de color
 botones.forEach(boton => {
     boton.addEventListener("click", () => {
@@ -165,6 +159,3 @@ function desactivarBotones() {
         boton.classList.add("desactivado");
     });
 }
-
-
-
