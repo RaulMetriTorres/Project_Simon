@@ -97,8 +97,8 @@ function ingresarColor(color) {
     // Verificar si el jugador ha completado la secuencia
     if (entradaJugador.length === secuenciaColores.length) {
         nivel++;
-        alert("¡Correcto! Pasas al nivel " + nivel);
-        siguienteNivel();
+        // Esperar 1 segundo antes de mostrar la siguiente secuencia
+        setTimeout(siguienteNivel, 1000);
     }
 }
 
