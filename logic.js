@@ -1,11 +1,12 @@
 // Variables para el juego
-let nivel = 1;
-let secuenciaColores = [];
-let entradaJugador = [];
+let nivel = 1; //Guarda el nivel del juego actual empezando con 1
+let secuenciaColores = []; //Array que almacena la secuencia de colores generada aleatoriamente por el juego
+let entradaJugador = []; //Array donde el jugador almacena los colores que selecciona.
 let timeoutIds = [];  // Array para almacenar los ids de los setTimeout
-const botones = document.querySelectorAll(".simon-button");
-const botonInicio = document.querySelector(".simon-startbutton");
-let juegoIniciado = false;  // Nueva variable para controlar si el juego ha comenzado
+const botones = document.querySelectorAll(".simon-button"); //Botones de colores
+const botonInicio = document.querySelector(".simon-startbutton"); //Botón de inicio o reset
+let juegoIniciado = false;  // Bandera que indica si el juego ha comenzado o no
+desactivarBotones();
 
 // Cargar sonidos para cada color
 const sonidos = {
@@ -20,7 +21,7 @@ function iniciarJuego() {
     nivel = 1;
     secuenciaColores = []; // Limpiar la secuencia para comenzar desde cero
     botonInicio.textContent = "RESET"; // Cambiar el texto del botón a "RESET"
-    juegoIniciado = true;  // Marcar que el juego ha comenzado
+    juegoIniciado = true;  // Bandera que marca que el juego ha comenzado
     siguienteNivel();
 }
 
@@ -29,14 +30,15 @@ function reiniciarJuego() {
     // Cancelar cualquier secuencia que esté en ejecución
     timeoutIds.forEach(timeoutId => clearTimeout(timeoutId)); // Detener los temporizadores activos
     timeoutIds = [];  // Limpiar el array de timeoutIds
+    //Detiene la secuencia de colores y la reinicie después de presionar el reset
 
     nivel = 1;
-    secuenciaColores = [];
-    entradaJugador = [];
+    secuenciaColores = []; //Creando arreglo vacío
+    entradaJugador = []; //Creando arreglo vacío
     botonInicio.textContent = "START"; // Cambiar el texto del botón de vuelta a "START"
-    document.querySelector(".simon-levelbutton").textContent = `0/20`; // Resetear el nivel en la UI a 0
-    juegoIniciado = false;  // Marcar que el juego no ha comenzado
-    desactivarBotones();  // Desactivar los botones al reiniciar
+    document.querySelector(".simon-levelbutton").textContent = `0/20`; // Resetear el nivel a 0 en el botón superior
+    juegoIniciado = false;  // Bandera que marca que el juego no ha comenzado
+    desactivarBotones();  // Desactivar los botones de colores al reiniciar
 }
 
 // Función para avanzar al siguiente nivel
@@ -44,7 +46,7 @@ function siguienteNivel() {
     if (nivel <= 20) { // Limitar a los primeros 20 niveles
         agregarColorAleatorio();
         mostrarSecuencia();
-        document.querySelector(".simon-levelbutton").textContent = `${nivel}/20`;
+        document.querySelector(".simon-levelbutton").textContent = `${nivel}/20`;//Mostrar el nivel actual en el "botón" superior
     } else {
         alert("¡Felicidades, has completado el juego!");
         reiniciarJuego(); // Reiniciar el juego al completar todos los niveles
@@ -69,11 +71,11 @@ function mostrarSecuencia() {
     });
 
     // Guardar los ids de los temporizadores
-    secuenciaColores.forEach((color, index) => {
+    secuenciaColores.forEach((color, index) => {//recorre cada color en la secuencia que el jugador debe memorizar
         const timeoutId = setTimeout(() => {
             encenderColor(color);
-        }, delay);
-        timeoutIds.push(timeoutId);  // Guardar el id del temporizador
+        }, delay); //Usa setTimeout para activar el color con un retraso específico.
+        timeoutIds.push(timeoutId);  // Guardar el id del temporizador en timeoutId
         delay += 1000; // Tiempo entre cada color
     });
 
@@ -147,15 +149,17 @@ botonInicio.addEventListener("click", () => {
     }
 });
 
-// Funciones para activar/desactivar botones
+// Funciones para activar botones
 function activarBotones() {
     botones.forEach(boton => {
         boton.classList.remove("desactivado");
     });
 }
 
+//Función para desactivar botones
 function desactivarBotones() {
     botones.forEach(boton => {
         boton.classList.add("desactivado");
     });
+//Agrega la propiedad .simon-button.desactivado a cada uno de los botones de colores para que no se pueda interactuar con ellos
 }
